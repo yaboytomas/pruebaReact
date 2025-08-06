@@ -15,7 +15,7 @@ import {
   Avatar,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 
 const Links = [
   { name: 'Inicio', path: '/' },
@@ -25,7 +25,7 @@ const Links = [
   { name: 'Webmail', path: '/webmail' }
 ];
 
-const NavLink = ({ children, to }) => (
+const NavLink = ({ children, to, isActive }) => (
   <Link
     as={RouterLink}
     to={to}
@@ -33,10 +33,12 @@ const NavLink = ({ children, to }) => (
     py={1}
     rounded={'md'}
     color="white"
+    bg={isActive ? '#FFC02B' : 'transparent'}
+    fontWeight={isActive ? 'bold' : 'normal'}
     _hover={{
       textDecoration: 'none',
-      bg: '#00ACAC',
-      color: 'white'
+      bg: isActive ? '#FFC02B' : '#0071A9',
+      color: isActive ? '#0071A9' : 'white'
     }}>
     {children}
   </Link>
@@ -44,16 +46,17 @@ const NavLink = ({ children, to }) => (
 
 export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const location = useLocation();
 
   return (
     <>
       <Box 
-        bg="#0071A9"
+        bg="#00ACAC"
         px={4} 
         position="relative" 
         zIndex={10}
         borderBottom="1px solid"
-        borderColor="#00ACAC"
+        borderColor="#0071A9"
         boxShadow="sm">
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
@@ -64,7 +67,7 @@ export default function NavBar() {
             onClick={isOpen ? onClose : onOpen}
             color="white"
             bg="transparent"
-            _hover={{ bg: '#00ACAC' }}
+            _hover={{ bg: '#0071A9' }}
           />
           <HStack spacing={8} alignItems={'center'}>
             <Link 
@@ -84,7 +87,12 @@ export default function NavBar() {
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
-                <NavLink key={link.name} to={link.path}>{link.name}</NavLink>
+                <NavLink 
+                  key={link.name} 
+                  to={link.path}
+                  isActive={location.pathname === link.path}>
+                  {link.name}
+                </NavLink>
               ))}
             </HStack>
           </HStack>
@@ -98,9 +106,7 @@ export default function NavBar() {
                 minW={0}>
                 <Avatar
                   size={'sm'}
-                  src={
-                    'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-                  }
+                  src={'/src/assets/logo.png'}
                 />
               </MenuButton>
               <MenuList>
@@ -117,7 +123,12 @@ export default function NavBar() {
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link.name} to={link.path}>{link.name}</NavLink>
+                <NavLink 
+                  key={link.name} 
+                  to={link.path}
+                  isActive={location.pathname === link.path}>
+                  {link.name}
+                </NavLink>
               ))}
             </Stack>
           </Box>
