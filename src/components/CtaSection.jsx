@@ -67,6 +67,9 @@ const Illustration = (props) => {
         bg={useColorModeValue('blue.50', 'blue.900')}
         borderRadius="lg"
         p={8}
+        justifyContent={'center'}
+        alignItems={'center'}
+        display="flex"
         textAlign="center"
         boxShadow="lg">
         <Heading size="md" mb={4} color="blue.600">

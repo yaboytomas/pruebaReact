@@ -31,7 +31,7 @@ const Logo = (props) => {
 
 const ListHeader = ({ children }) => {
   return (
-    <Text fontWeight={'500'} fontSize={'lg'} mb={2}>
+    <Text fontWeight={'500'} fontSize={'md'} mb={1}>
       {children}
     </Text>
   );
@@ -42,19 +42,19 @@ export default function Footer() {
     <Box
       bg={useColorModeValue('gray.50', 'gray.900')}
       color={useColorModeValue('gray.700', 'gray.200')}>
-      <Container as={Stack} maxW={'6xl'} py={10}>
+      <Container as={Stack} maxW={'6xl'} py={6}>
         <SimpleGrid
           templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 1fr 1fr' }}
-          spacing={8}>
-          <Stack spacing={6}>
+          spacing={6}>
+          <Stack spacing={3}>
             <Box>
               <Logo color={useColorModeValue('gray.700', 'white')} />
             </Box>
-            <Text fontSize={'sm'}>
+            <Text fontSize={'xs'}>
               Trabajamos por el desarrollo y bienestar de nuestra comunidad,
               ofreciendo servicios municipales eficientes y transparentes.
             </Text>
-            <Stack direction={'row'} spacing={6}>
+            <Stack direction={'row'} spacing={3}>
               <Tag size="sm" variant="solid" colorScheme="blue">
                 Servicios 24/7
               </Tag>
@@ -65,38 +65,54 @@ export default function Footer() {
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Servicios</ListHeader>
-            <Link href={'#'}>Trámites Online</Link>
-            <Link href={'#'}>Certificados</Link>
-            <Link href={'#'}>Pagos</Link>
-            <Link href={'#'}>Consultas</Link>
-            <Link href={'#'}>Reclamos</Link>
+            <Link href={'#'} fontSize="sm">Trámites Online</Link>
+            <Link href={'#'} fontSize="sm">Certificados</Link>
+            <Link href={'#'} fontSize="sm">Pagos</Link>
+            <Link href={'#'} fontSize="sm">Consultas</Link>
           </Stack>
           <Stack align={'flex-start'}>
             <ListHeader>Información</ListHeader>
-            <Link href={'#'}>Noticias</Link>
-            <Link href={'#'}>Eventos</Link>
-            <Link href={'#'}>Proyectos</Link>
-            <Link href={'#'}>Licitaciones</Link>
-            <Link href={'#'}>Transparencia</Link>
+            <Link href={'#'} fontSize="sm">Noticias</Link>
+            <Link href={'#'} fontSize="sm">Eventos</Link>
+            <Link href={'#'} fontSize="sm">Proyectos</Link>
+            <Link href={'#'} fontSize="sm">Transparencia</Link>
           </Stack>
-          <Stack align={'flex-start'}>
+          <Stack align={'center'}>
             <ListHeader>Gobierno</ListHeader>
-            <Link href={'#'}>Alcalde</Link>
-            <Link href={'#'}>Concejo Municipal</Link>
-            <Link href={'#'}>Organigrama</Link>
-            <Link href={'#'}>Presupuesto</Link>
-            <Link href={'#'}>Ordenanzas</Link>
+            <Link href={'#'} fontSize="sm">Alcalde</Link>
+            <Link href={'#'} fontSize="sm">Concejo Municipal</Link>
+            <Link href={'#'} fontSize="sm">Organigrama</Link>
+            <Link href={'#'} fontSize="sm">Presupuesto</Link>
           </Stack>
-          <Stack align={'flex-start'}>
+          <Stack align={'center'}>
             <ListHeader>Contacto</ListHeader>
-            <Text fontSize="sm">📍 Dirección Principal, Muncholol</Text>
-            <Text fontSize="sm">📞 (123) 456-7890</Text>
-            <Text fontSize="sm">✉️ info@muncholol.cl</Text>
-            <Text fontSize="sm">🕐 Lun-Vie: 8:00-17:00</Text>
+            <Link 
+              href="https://maps.google.com/?q=JOSÉ JOAQUÍN PéReZ, 449, Cholchol" 
+              fontSize="xs" 
+              isExternal
+              _hover={{ textDecoration: 'underline' }}
+            >
+              📍 JOSÉ JOAQUÍN PéReZ, 449, Cholchol
+            </Link>
+            <Link 
+              href="tel:+562452734200" 
+              fontSize="xs"
+              _hover={{ textDecoration: 'underline' }}
+            >
+              📞 (452) 734200
+            </Link>
+            <Link 
+              href="mailto:oficinadepartes@municholchol.cl" 
+              fontSize="xs"
+              _hover={{ textDecoration: 'underline' }}
+            >
+              ✉️ oficinadepartes@municholchol.cl
+            </Link>
+            <Text fontSize="xs">🕐 Lun-Vie: 8:00-17:00</Text>
           </Stack>
         </SimpleGrid>
       </Container>
-      <Box py={10}>
+      <Box py={4}>
         <Flex
           align={'center'}
           _before={{
@@ -115,7 +131,7 @@ export default function Footer() {
           }}>
           <Logo />
         </Flex>
-        <Text pt={6} fontSize={'sm'} textAlign={'center'}>
+        <Text pt={3} fontSize={'xs'} textAlign={'center'}>
           © 2025 Municipalidad de Muncholol. Todos los derechos reservados.
         </Text>
       </Box>

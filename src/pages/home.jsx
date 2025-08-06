@@ -7,7 +7,7 @@ import Footer from '../components/Footer.jsx';
 
 function Home() {
   return (
-    <Box>
+    <Box width="100%" overflowX="hidden">
       <NavBar />
       <HeroSection />
       <FeaturedSection />

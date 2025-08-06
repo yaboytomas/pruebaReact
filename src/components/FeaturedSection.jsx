@@ -8,6 +8,8 @@ import {
   Stack,
   HStack,
   VStack,
+  Card,
+  CardBody,
 } from '@chakra-ui/react';
 import { CheckIcon } from '@chakra-ui/icons';
 
@@ -57,17 +59,42 @@ export default function FeaturedSection() {
       </Stack>
 
       <Container maxW={'6xl'} mt={10}>
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
           {features.map((feature) => (
-            <HStack key={feature.id} align={'top'}>
-              <Box color={'green.400'} px={2}>
-                <Icon as={CheckIcon} />
-              </Box>
-              <VStack align={'start'}>
-                <Text fontWeight={600}>{feature.title}</Text>
-                <Text color={'gray.600'}>{feature.text}</Text>
-              </VStack>
-            </HStack>
+            <Card 
+              key={feature.id}
+              cursor="pointer"
+              transition="all 0.3s ease"
+              _hover={{
+                transform: 'translateY(-8px)',
+                shadow: 'xl',
+                borderColor: 'green.400',
+              }}
+              border="1px"
+              borderColor="gray.200"
+              borderRadius="lg"
+            >
+              <CardBody p={6}>
+                <HStack align={'top'} spacing={4}>
+                  <Box 
+                    color={'green.400'} 
+                    fontSize="xl"
+                    transition="all 0.3s ease"
+                    _groupHover={{ transform: 'scale(1.1)' }}
+                  >
+                    <Icon as={CheckIcon} />
+                  </Box>
+                  <VStack align={'start'} spacing={3}>
+                    <Text fontWeight={600} fontSize="lg" color="gray.800">
+                      {feature.title}
+                    </Text>
+                    <Text color={'gray.600'} fontSize="md" lineHeight="1.6">
+                      {feature.text}
+                    </Text>
+                  </VStack>
+                </HStack>
+              </CardBody>
+            </Card>
           ))}
         </SimpleGrid>
       </Container>
