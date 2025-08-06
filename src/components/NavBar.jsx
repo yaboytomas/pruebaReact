@@ -11,7 +11,6 @@ import {
   MenuItem,
   MenuDivider,
   useDisclosure,
-  useColorModeValue,
   Stack,
   Avatar,
 } from '@chakra-ui/react';
@@ -33,9 +32,11 @@ const NavLink = ({ children, to }) => (
     px={2}
     py={1}
     rounded={'md'}
+    color="white"
     _hover={{
       textDecoration: 'none',
-      bg: useColorModeValue('gray.200', 'gray.700'),
+      bg: '#00ACAC',
+      color: 'white'
     }}>
     {children}
   </Link>
@@ -46,7 +47,14 @@ export default function NavBar() {
 
   return (
     <>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+      <Box 
+        bg="#0071A9"
+        px={4} 
+        position="relative" 
+        zIndex={10}
+        borderBottom="1px solid"
+        borderColor="#00ACAC"
+        boxShadow="sm">
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'md'}
@@ -54,10 +62,22 @@ export default function NavBar() {
             aria-label={'Open Menu'}
             display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
+            color="white"
+            bg="transparent"
+            _hover={{ bg: '#00ACAC' }}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Link as={RouterLink} to="/" fontWeight="bold" fontSize="lg" _hover={{ textDecoration: 'none' }}>
-              Municipalidad
+            <Link 
+              as={RouterLink} 
+              to="/" 
+              fontWeight="bold" 
+              fontSize="lg" 
+              color="white"
+              _hover={{ 
+                textDecoration: 'none',
+                color: "#FFC02B"
+              }}>
+              Municipalidad Muncholol
             </Link>
             <HStack
               as={'nav'}
