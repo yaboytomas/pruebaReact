@@ -6,18 +6,30 @@ import {
   Heading,
   Stack,
   Text,
-  useColorModeValue,
   useToast,
   Progress,
   VStack,
+  Image,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  HStack,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import image1 from '../assets/1.jpg';
+import image2 from '../assets/2.jpg';
+import image3 from '../assets/3.jpg';
 
 export default function CtaSection() {
   const [isRegistering, setIsRegistering] = useState(false);
   const [registrationProgress, setRegistrationProgress] = useState(0);
   const [showProgress, setShowProgress] = useState(false);
   const [hasCompleted, setHasCompleted] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
   // Click event handler for registration button
@@ -66,107 +78,180 @@ export default function CtaSection() {
     });
   };
 
-  return (
-         <Box
-       bg="linear-gradient(135deg, #0071A9 0%, #005a8a 50%, #004d7a 100%)"
-       py={12}
-       position="relative"
-      _before={{
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'linear-gradient(135deg, rgba(255, 192, 43, 0.1) 0%, rgba(0, 172, 172, 0.1) 50%, rgba(255, 192, 43, 0.05) 100%)',
-        pointerEvents: 'none',
-        zIndex: 0,
-      }}
-    >
-      <Container maxW={'5xl'} position="relative" zIndex={1}>
-             <Stack
-         textAlign={'center'}
-         align={'center'}
-         spacing={{ base: 6, md: 8 }}
-         py={{ base: 6, md: 8 }}>
-        <Heading
-          fontWeight={600}
-          fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
-          lineHeight={'110%'}>
-          Únete a la{' '}
-          <Text as={'span'} color={'#FFC02B'}>
-            transformación digital
-          </Text>{' '}
-          de nuestra municipalidad
-        </Heading>
-                 <Text color={'white'} maxW={'3xl'} opacity={0.9}>
-           Sé parte del cambio hacia una gestión municipal más moderna, 
-           eficiente y cercana a la ciudadanía. Regístrate para acceder 
-           a todos nuestros servicios digitales.
-         </Text>
-        <VStack spacing={4}>
-          <Stack spacing={6} direction={'row'}>
-            <Button
-              rounded={'full'}
-              px={6}
-              bg={'#FFC02B'}
-              color={'#0071A9'}
-              onClick={hasCompleted ? () => {
-                setHasCompleted(false);
-                setRegistrationProgress(0);
-                setShowProgress(false);
-              } : handleRegisterClick}
-              isLoading={isRegistering}
-              loadingText="Registrando..."
-              _hover={{ bg: '#e6ab26' }}>
-              {hasCompleted ? 'Registrarse Nuevamente' : 'Registrarse Ahora'}
-            </Button>
-            <Button 
-              rounded={'full'} 
-              px={6}
-              variant={'outline'}
-              borderColor={'#0071A9'}
-              color={'#0071A9'}
-              onClick={handleLearnMoreClick}
-              _hover={{ bg: '#0071A9', color: 'white' }}>
-              Conocer Más
-            </Button>
-          </Stack>
+  // Click event handler for image fullscreen
+  const handleImageClick = (imageSrc) => {
+    setSelectedImage(imageSrc);
+    onOpen();
+  };
 
-          {/* Dynamic Progress Bar */}
-          {showProgress && (
-            <Box w="full" maxW="400px" animation="slideDown 0.3s ease-out">
-                             <Text fontSize="sm" color="white" mb={2} textAlign="center">
-                 Procesando registro... {registrationProgress}%
-               </Text>
-               <Progress 
-                 value={registrationProgress} 
-                 bg="#e2e8f0"
-                 colorScheme="custom"
-                 size="sm"
-                 borderRadius="full"
-                 hasStripe
-                 isAnimated
-                 sx={{
-                   '& > div': {
-                     bg: '#FFC02B'
-                   }
-                 }}
-               />
+  const images = [
+    { src: image1, alt: 'Imagen 1 de la municipalidad' },
+    { src: image2, alt: 'Imagen 2 de la municipalidad' },
+    { src: image3, alt: 'Imagen 3 de la municipalidad' },
+  ];
+
+  return (
+    <>
+      <Box
+        bg="linear-gradient(135deg, #0071A9 0%, #005a8a 50%, #004d7a 100%)"
+        py={12}
+        position="relative"
+        _before={{
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'linear-gradient(135deg, rgba(255, 192, 43, 0.1) 0%, rgba(0, 172, 172, 0.1) 50%, rgba(255, 192, 43, 0.05) 100%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      >
+        <Container maxW={'5xl'} position="relative" zIndex={1}>
+          <Stack
+            textAlign={'center'}
+            align={'center'}
+            spacing={{ base: 6, md: 8 }}
+            py={{ base: 6, md: 8 }}>
+            <Heading
+              fontWeight={600}
+              fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
+              lineHeight={'110%'}>
+              Únete a la{' '}
+              <Text as={'span'} color={'#FFC02B'}>
+                transformación digital
+              </Text>{' '}
+              de nuestra municipalidad
+            </Heading>
+            <Text color={'white'} maxW={'3xl'} opacity={0.9}>
+              Sé parte del cambio hacia una gestión municipal más moderna, 
+              eficiente y cercana a la ciudadanía. Regístrate para acceder 
+              a todos nuestros servicios digitales.
+            </Text>
+            <VStack spacing={4}>
+              <Stack spacing={6} direction={'row'}>
+                <Button
+                  rounded={'full'}
+                  px={6}
+                  bg={'#FFC02B'}
+                  color={'#0071A9'}
+                  onClick={hasCompleted ? () => {
+                    setHasCompleted(false);
+                    setRegistrationProgress(0);
+                    setShowProgress(false);
+                  } : handleRegisterClick}
+                  isLoading={isRegistering}
+                  loadingText="Registrando..."
+                  _hover={{ bg: '#e6ab26' }}>
+                  {hasCompleted ? 'Registrarse Nuevamente' : 'Registrarse Ahora'}
+                </Button>
+                <Button 
+                  rounded={'full'} 
+                  px={6}
+                  variant={'outline'}
+                  borderColor={'#0071A9'}
+                  color={'#0071A9'}
+                  onClick={handleLearnMoreClick}
+                  _hover={{ bg: '#0071A9', color: 'white' }}>
+                  Conocer Más
+                </Button>
+              </Stack>
+
+              {/* Dynamic Progress Bar */}
+              {showProgress && (
+                <Box w="full" maxW="400px" animation="slideDown 0.3s ease-out">
+                  <Text fontSize="sm" color="white" mb={2} textAlign="center">
+                    Procesando registro... {registrationProgress}%
+                  </Text>
+                  <Progress 
+                    value={registrationProgress} 
+                    bg="#e2e8f0"
+                    colorScheme="custom"
+                    size="sm"
+                    borderRadius="full"
+                    hasStripe
+                    isAnimated
+                    sx={{
+                      '& > div': {
+                        bg: '#FFC02B'
+                      }
+                    }}
+                  />
+                </Box>
+              )}
+            </VStack>
+            <Flex w={'full'}>
+              <Illustration
+                height={{ sm: '20rem', lg: '24rem' }}
+                mt={{ base: 8, sm: 10 }}
+              />
+            </Flex>
+
+            {/* Images Section */}
+            <Box w="full" mt={8}>
+              <Heading size="md" color="#FFC02B" mb={4} textAlign="center">
+                Galería de Imágenes
+              </Heading>
+              <Text color="white" fontSize="sm" mb={6} textAlign="center" opacity={0.9}>
+                Haz clic en cualquier imagen para verla en pantalla completa
+              </Text>
+              <HStack spacing={4} justify="center" flexWrap="wrap">
+                {images.map((image, index) => (
+                  <Box
+                    key={index}
+                    cursor="pointer"
+                    transition="all 0.3s ease"
+                    _hover={{
+                      transform: 'scale(1.05)',
+                      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.3)',
+                    }}
+                    onClick={() => handleImageClick(image.src)}
+                    borderRadius="lg"
+                    overflow="hidden"
+                    boxShadow="0 4px 8px rgba(0, 0, 0, 0.2)"
+                    border="2px solid"
+                    borderColor="rgba(255, 192, 43, 0.3)"
+                  >
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      w={{ base: '200px', md: '250px' }}
+                      h={{ base: '150px', md: '180px' }}
+                      objectFit="cover"
+                      transition="all 0.3s ease"
+                    />
+                  </Box>
+                ))}
+              </HStack>
             </Box>
-          )}
-        </VStack>
-                 <Flex w={'full'}>
-           <Illustration
-             height={{ sm: '20rem', lg: '24rem' }}
-             mt={{ base: 8, sm: 10 }}
-           />
-                  </Flex>
-       </Stack>
-     </Container>
-     </Box>
-   );
- }
+          </Stack>
+        </Container>
+      </Box>
+
+      {/* Fullscreen Modal */}
+      <Modal isOpen={isOpen} onClose={onClose} size="full">
+        <ModalOverlay />
+        <ModalContent bg="black" maxW="100vw" maxH="100vh">
+          <ModalCloseButton color="white" zIndex={10} />
+          <ModalBody p={0} display="flex" alignItems="center" justifyContent="center">
+            {selectedImage && (
+              <Image
+                src={selectedImage}
+                alt="Imagen en pantalla completa"
+                maxW="100%"
+                maxH="100%"
+                objectFit="contain"
+                cursor="pointer"
+                onClick={onClose}
+              />
+            )}
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}
 
 const Illustration = (props) => {
   return (
