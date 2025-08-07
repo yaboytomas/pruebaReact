@@ -5,7 +5,7 @@ import Home from './pages/home.jsx';
 
 function App() {
   return (
-    <Box minHeight="100vh" overflowX="hidden" width="100%">
+    <Box overflowX="hidden" width="100%">
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />

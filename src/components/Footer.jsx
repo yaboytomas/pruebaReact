@@ -38,10 +38,23 @@ const ListHeader = ({ children }) => {
 
 export default function Footer() {
   return (
-    <Box
-      bg="#0071A9"
-      color="white">
-      <Container as={Stack} maxW={'6xl'} py={6}>
+         <Box
+       bg="linear-gradient(135deg, #0071A9 0%, #005a8a 50%, #004d7a 100%)"
+       color="white"
+       mt={0}
+       position="relative"
+       _before={{
+         content: '""',
+         position: 'absolute',
+         top: 0,
+         left: 0,
+         right: 0,
+         bottom: 0,
+         background: 'linear-gradient(135deg, rgba(255, 192, 43, 0.05) 0%, rgba(0, 172, 172, 0.05) 50%, rgba(255, 192, 43, 0.02) 100%)',
+         pointerEvents: 'none',
+         zIndex: 0,
+       }}>
+             <Container as={Stack} maxW={'6xl'} py={4} position="relative" zIndex={1}>
         <SimpleGrid
           templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 1fr 1fr' }}
           spacing={6}>
@@ -114,7 +127,7 @@ export default function Footer() {
           </Stack>
         </SimpleGrid>
       </Container>
-      <Box py={4}>
+      <Box py={2}>
         <Flex
           align={'center'}
           _before={{
@@ -133,7 +146,7 @@ export default function Footer() {
           }}>
           <Logo />
         </Flex>
-        <Text pt={3} fontSize={'xs'} textAlign={'center'}>
+        <Text pt={2} fontSize={'xs'} textAlign={'center'}>
           © 2025 Municipalidad de Muncholol. Todos los derechos reservados.
         </Text>
       </Box>

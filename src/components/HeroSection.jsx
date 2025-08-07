@@ -11,15 +11,72 @@ import {
   IconButton,
   createIcon,
   useColorModeValue,
+  useToast,
 } from '@chakra-ui/react';
 import logoImage from '../assets/logo.png';
 import muniImage from '../assets/muni.png';
+import { useState, useRef } from 'react';
 
 export default function HeroSection() {
+  const [isLogoHovered, setIsLogoHovered] = useState(false);
+  const [clickCount, setClickCount] = useState(0);
+  const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
+  const logoRef = useRef();
+  const welcomeMessageRef = useRef();
+  const toast = useToast();
+
+  // Click event handler for logo
+  const handleLogoClick = () => {
+    setClickCount(prev => prev + 1);
+    
+    if (clickCount === 4) {
+      toast({
+        title: '¡Easter Egg!',
+        description: 'Has encontrado un mensaje secreto de la municipalidad',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+      setClickCount(0);
+    }
+  };
+
+  // Mouseover event handler for logo
+  const handleLogoMouseOver = () => {
+    setIsLogoHovered(true);
+  };
+
+  // Mouseout event handler for logo
+  const handleLogoMouseOut = () => {
+    setIsLogoHovered(false);
+  };
+
+  // Click event handler for services button
+  const handleServicesClick = () => {
+    // Dynamic DOM manipulation - add welcome message
+    setShowWelcomeMessage(true);
+    
+    // Remove message after 3 seconds
+    setTimeout(() => {
+      setShowWelcomeMessage(false);
+    }, 3000);
+  };
+
+  // Click event handler for learn more button
+  const handleLearnMoreClick = () => {
+    toast({
+      title: 'Redirigiendo...',
+      description: 'Serás dirigido al canal de YouTube de la municipalidad',
+      status: 'info',
+      duration: 2000,
+      isClosable: true,
+    });
+  };
+
   return (
     <Box
       position="relative"
-      minH="80vh"
+      minH="70vh"
       backgroundImage={`url(${muniImage})`}
       backgroundSize="cover"
       backgroundPosition="center"
@@ -110,6 +167,7 @@ export default function HeroSection() {
                 width={'400px'}
                 overflow={'visible'}>
                 <Image
+                  ref={logoRef}
                   alt={'Municipality Logo'}
                   src={logoImage}
                   width={'300px'}
@@ -118,6 +176,15 @@ export default function HeroSection() {
                   maxHeight={'300px'}
                   objectFit={'contain'}
                   filter={'drop-shadow(0 8px 16px rgba(0,0,0,0.4))'}
+                  cursor="pointer"
+                  onClick={handleLogoClick}
+                  onMouseOver={handleLogoMouseOver}
+                  onMouseOut={handleLogoMouseOut}
+                  transition="all 0.3s ease"
+                  transform={isLogoHovered ? 'scale(1.1) rotate(5deg)' : 'scale(1) rotate(0deg)'}
+                  _hover={{
+                    filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.6))',
+                  }}
                 />
               </Box>
             </Flex>
@@ -135,7 +202,7 @@ export default function HeroSection() {
               size={'lg'}
               fontWeight={'normal'}
               px={8}
-              onClick={() => { window.open('https://portalweb.insico.cl/Cholchol/Permisos/', '_blank'); }  }
+              onClick={handleServicesClick}
               bg={'#FFC02B'}
               color={'#0071A9'}
               _hover={{ bg: '#e6ab26', transform: 'translateY(-2px)' }}
@@ -146,7 +213,7 @@ export default function HeroSection() {
               rounded={'full'}
               size={'lg'}
               fontWeight={'normal'}
-              onClick={() => { window.open('https://www.youtube.com/@MunicipalidaddeCholcholOficial/streams', '_blank'); }}
+              onClick={handleLearnMoreClick}
               px={8}
               bg={'#00ACAC'}
               color={'white'}
@@ -161,11 +228,34 @@ export default function HeroSection() {
               Conoce más
             </Button>
           </Stack>
+
+          {/* Dynamic Welcome Message */}
+          {showWelcomeMessage && (
+            <Box
+              ref={welcomeMessageRef}
+              bg="green.500"
+              color="white"
+              p={4}
+              borderRadius="lg"
+              textAlign="center"
+              animation="slideIn 0.5s ease-out"
+              position="fixed"
+              top="20px"
+              right="20px"
+              zIndex={1000}
+              boxShadow="lg"
+            >
+              <Text fontWeight="bold">¡Bienvenido a nuestros servicios online!</Text>
+              <Text fontSize="sm">Serás redirigido al portal de trámites</Text>
+            </Box>
+          )}
         </Stack>
       </Container>
     </Box>
   );
-}const PlayIcon = createIcon({
+}
+
+const PlayIcon = createIcon({
   displayName: 'PlayIcon',
   viewBox: '0 0 58 58',
   d: 'M28.9999 0.562988C13.3196 0.562988 0.562378 13.3202 0.562378 29.0005C0.562378 44.6808 13.3196 57.438 28.9999 57.438C44.6801 57.438 57.4374 44.6808 57.4374 29.0005C57.4374 13.3202 44.6801 0.562988 28.9999 0.562988ZM39.2223 30.272L23.5749 39.7247C23.3506 39.8591 23.0946 39.9314 22.8332 39.9342C22.5717 39.9369 22.3142 39.8701 22.0871 39.7406C21.86 39.611 21.6715 39.4234 21.5408 39.1969C21.4102 38.9705 21.3421 38.7133 21.3436 38.4519V19.5491C21.3421 19.2877 21.4102 19.0305 21.5408 18.8041C21.6715 18.5776 21.86 18.3899 22.0871 18.2604C22.3142 18.1308 22.5717 18.064 22.8332 18.0668C23.0946 18.0696 23.3506 18.1419 23.5749 18.2763L39.2223 27.729C39.4404 27.8619 39.6207 28.0486 39.7458 28.2713C39.8709 28.494 39.9366 28.7451 39.9366 29.0005C39.9366 29.2559 39.8709 29.507 39.7458 29.7297C39.6207 29.9523 39.4404 30.1391 39.2223 30.272Z',

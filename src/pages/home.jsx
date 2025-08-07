@@ -3,6 +3,7 @@ import NavBar from '../components/NavBar.jsx';
 import HeroSection from '../components/HeroSection.jsx';
 import FeaturedSection from '../components/FeaturedSection.jsx';
 import CtaSection from '../components/CtaSection.jsx';
+import ContactForm from '../components/ContactForm.jsx';
 import Footer from '../components/Footer.jsx';
 
 function Home() {
@@ -12,6 +13,7 @@ function Home() {
       <HeroSection />
       <FeaturedSection />
       <CtaSection />
+      <ContactForm />
       <Footer />
     </Box>
   );
