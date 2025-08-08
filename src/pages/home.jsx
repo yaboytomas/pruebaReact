@@ -8,7 +8,12 @@ import Footer from '../components/Footer.jsx';
 
 function Home() {
   return (
-    <Box width="100%" overflowX="hidden">
+    <Box 
+      width="100vw" 
+      overflowX="hidden"
+      margin={0}
+      padding={0}
+      position="relative">
       <NavBar />
       <HeroSection />
       <FeaturedSection />

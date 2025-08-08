@@ -5,7 +5,13 @@ import Home from './pages/home.jsx';
 
 function App() {
   return (
-    <Box overflowX="hidden" width="100%">
+    <Box 
+      overflowX="hidden" 
+      width="100vw" 
+      minHeight="100vh"
+      margin={0}
+      padding={0}
+      position="relative">
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />

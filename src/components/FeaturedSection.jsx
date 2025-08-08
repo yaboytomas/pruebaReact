@@ -15,7 +15,7 @@ import {
   IconButton,
 } from '@chakra-ui/react';
 import { CheckIcon, StarIcon, InfoIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 // Replace test data with your data
 const features = [
@@ -54,7 +54,9 @@ const features = [
 export default function FeaturedSection() {
   const [expandedCard, setExpandedCard] = useState(null);
   const [favoriteServices, setFavoriteServices] = useState([]);
+  const [lastAction, setLastAction] = useState(null);
   const toast = useToast();
+  const isInitialMount = useRef(true);
 
   // Click event handler for card expansion
   const handleCardClick = (featureId) => {
@@ -65,27 +67,20 @@ export default function FeaturedSection() {
   const handleFavoriteClick = (featureId, e) => {
     e.preventDefault();
     e.stopPropagation(); // Prevent card expansion
+    
     setFavoriteServices(prev => {
       const isFavorite = prev.includes(featureId);
-      if (isFavorite) {
-        toast({
-          title: 'Servicio removido de favoritos',
-          description: 'El servicio ha sido removido de tus favoritos',
-          status: 'info',
-          duration: 2000,
-          isClosable: true,
-        });
-        return prev.filter(id => id !== featureId);
-      } else {
-        toast({
-          title: 'Servicio agregado a favoritos',
-          description: 'El servicio ha sido agregado a tus favoritos',
-          status: 'success',
-          duration: 2000,
-          isClosable: true,
-        });
-        return [...prev, featureId];
-      }
+      const newFavorites = isFavorite 
+        ? prev.filter(id => id !== featureId)
+        : [...prev, featureId];
+      
+      // Set the action to trigger useEffect
+      setLastAction({
+        type: isFavorite ? 'removed' : 'added',
+        featureId
+      });
+      
+      return newFavorites;
     });
   };
 
@@ -106,6 +101,37 @@ export default function FeaturedSection() {
       card.style.transform = 'translateY(0) scale(1)';
     }
   };
+
+  // Handle toast notifications for favorite actions
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
+    if (lastAction) {
+      if (lastAction.type === 'added') {
+        toast({
+          title: 'Servicio agregado a favoritos',
+          description: 'El servicio ha sido agregado a tus favoritos',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+      } else if (lastAction.type === 'removed') {
+        toast({
+          title: 'Servicio removido de favoritos',
+          description: 'El servicio ha sido removido de tus favoritos',
+          status: 'info',
+          duration: 2000,
+          isClosable: true,
+        });
+      }
+      
+      // Clear the action after showing toast
+      setLastAction(null);
+    }
+  }, [lastAction, toast]);
 
   return (
     <Box 
