@@ -57,8 +57,13 @@ export default function NavBar() {
         zIndex={10}
         borderBottom="1px solid"
         borderColor="#0071A9"
-        boxShadow="sm">
-        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+        borderRadius="3xl"
+        mx={4}
+        mt={2}
+        boxShadow="sm"
+        overflow="hidden">
+        <Flex h={16} alignItems={'center'} justifyContent={'center'} position="relative">
+          {/* Mobile Menu Button - Left */}
           <IconButton
             size={'md'}
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
@@ -68,8 +73,12 @@ export default function NavBar() {
             color="white"
             bg="transparent"
             _hover={{ bg: '#0071A9' }}
+            position="absolute"
+            left={0}
           />
-          <HStack spacing={8} alignItems={'center'}>
+          
+          {/* Desktop Content - Centered */}
+          <HStack spacing={8} alignItems={'center'} display={{ base: 'none', md: 'flex' }}>
             <Link 
               as={RouterLink} 
               to="/" 
@@ -82,10 +91,8 @@ export default function NavBar() {
               }}>
               Municipalidad Muncholol
             </Link>
-            <HStack
-              as={'nav'}
-              spacing={4}
-              display={{ base: 'none', md: 'flex' }}>
+            
+            <HStack as={'nav'} spacing={6}>
               {Links.map((link) => (
                 <NavLink 
                   key={link.name} 
@@ -95,8 +102,7 @@ export default function NavBar() {
                 </NavLink>
               ))}
             </HStack>
-          </HStack>
-          <Flex alignItems={'center'}>
+            
             <Menu>
               <MenuButton
                 as={Button}
@@ -116,7 +122,46 @@ export default function NavBar() {
                 <MenuItem>Cerrar Sesión</MenuItem>
               </MenuList>
             </Menu>
-          </Flex>
+          </HStack>
+
+          {/* Mobile Content - Left aligned */}
+          <HStack spacing={4} alignItems={'center'} display={{ base: 'flex', md: 'none' }}>
+            <Link 
+              as={RouterLink} 
+              to="/" 
+              fontWeight="bold" 
+              fontSize="lg" 
+              color="white"
+              _hover={{ 
+                textDecoration: 'none',
+                color: "#FFC02B"
+              }}>
+              Municipalidad Muncholol
+            </Link>
+          </HStack>
+
+          {/* Mobile Avatar - Right */}
+          <Box display={{ base: 'block', md: 'none' }} position="absolute" right={0}>
+            <Menu>
+              <MenuButton
+                as={Button}
+                rounded={'full'}
+                variant={'link'}
+                cursor={'pointer'}
+                minW={0}>
+                <Avatar
+                  size={'sm'}
+                  src={'/src/assets/logo.png'}
+                />
+              </MenuButton>
+              <MenuList>
+                <MenuItem>Mi Perfil</MenuItem>
+                <MenuItem>Configuración</MenuItem>
+                <MenuDivider />
+                <MenuItem>Cerrar Sesión</MenuItem>
+              </MenuList>
+            </Menu>
+          </Box>
         </Flex>
 
         {isOpen ? (

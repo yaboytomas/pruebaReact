@@ -96,6 +96,10 @@ export default function CtaSection() {
         bg="linear-gradient(135deg, #0071A9 0%, #005a8a 50%, #004d7a 100%)"
         py={16}
         position="relative"
+        borderRadius="3xl"
+        mx={4}
+        my={4}
+        overflow="hidden"
         _before={{
           content: '""',
           position: 'absolute',

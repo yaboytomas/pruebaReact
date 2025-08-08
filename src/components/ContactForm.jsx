@@ -158,6 +158,10 @@ export default function ContactForm() {
       bg="linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%)"
       py={8}
       position="relative"
+      borderRadius="3xl"
+      mx={4}
+      my={4}
+      overflow="hidden"
       _before={{
         content: '""',
         position: 'absolute',

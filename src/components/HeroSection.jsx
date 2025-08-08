@@ -82,6 +82,10 @@ export default function HeroSection() {
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
       backgroundAttachment="fixed"
+      borderRadius="3xl"
+      mx={4}
+      my={2}
+      overflow="hidden"
       _before={{
         content: '""',
         position: 'absolute',

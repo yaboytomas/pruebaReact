@@ -139,6 +139,10 @@ export default function FeaturedSection() {
       px={4}
       bg="linear-gradient(135deg, #f7fafc 0%, #edf2f7 50%, #e2e8f0 100%)"
       position="relative"
+      borderRadius="3xl"
+      mx={4}
+      my={2}
+      overflow="hidden"
       _before={{
         content: '""',
         position: 'absolute',

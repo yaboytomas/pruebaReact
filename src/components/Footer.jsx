@@ -1,155 +1,96 @@
 import {
   Box,
   Container,
-  Link,
-  SimpleGrid,
   Stack,
   Text,
-  Flex,
-  Tag,
-  Image,
-  Heading,
+  HStack,
+  VStack,
+  Link,
+  Divider,
 } from '@chakra-ui/react';
-import logoImage from '../assets/logo.png';
-
-const Logo = (props) => {
-  return (
-    <Flex align="center" {...props}>
-      <Image
-        src={logoImage}
-        alt="Logo"
-        height="40px"
-        mr={3}
-      />
-      <Text fontSize="lg" fontWeight="bold">
-        Municipalidad Muncholol
-      </Text>
-    </Flex>
-  );
-};
-
-const ListHeader = ({ children }) => {
-  return (
-    <Text fontWeight={'500'} fontSize={'md'} mb={1}>
-      {children}
-    </Text>
-  );
-};
 
 export default function Footer() {
   return (
-         <Box
-       bg="linear-gradient(135deg, #0071A9 0%, #005a8a 50%, #004d7a 100%)"
-       color="white"
-       mt={0}
-       position="relative"
-       _before={{
-         content: '""',
-         position: 'absolute',
-         top: 0,
-         left: 0,
-         right: 0,
-         bottom: 0,
-         background: 'linear-gradient(135deg, rgba(255, 192, 43, 0.05) 0%, rgba(0, 172, 172, 0.05) 50%, rgba(255, 192, 43, 0.02) 100%)',
-         pointerEvents: 'none',
-         zIndex: 0,
-       }}>
-             <Container as={Stack} maxW={'6xl'} py={4} position="relative" zIndex={1}>
-        <SimpleGrid
-          templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 1fr 1fr' }}
-          spacing={6}>
-          <Stack spacing={3}>
-            <Box>
-              <Logo color="white" />
-            </Box>
-            <Text fontSize={'xs'}>
-              Trabajamos por el desarrollo y bienestar de nuestra comunidad,
-              ofreciendo servicios municipales eficientes y transparentes.
+    <Box
+      bg="linear-gradient(135deg, #0071A9 0%, #005a8a 50%, #004d7a 100%)"
+      color="white"
+      borderRadius="3xl"
+      mx={4}
+      mb={2}
+      py={{ base: 4, md: 6 }}
+      overflow="hidden"
+    >
+      <Container maxW="6xl">
+        <VStack spacing={{ base: 3, md: 4 }}>
+          {/* Main Content */}
+          <Stack
+            direction={{ base: 'column', md: 'row' }}
+            justify={{ base: 'center', md: 'center' }}
+            align="center"
+            w="full"
+            spacing={{ base: 3, md: 8 }}
+            textAlign="center"
+          >
+            {/* Left: Municipality Info */}
+            <VStack spacing={1} align="center">
+              <Text fontSize={{ base: 'lg', md: 'xl' }} fontWeight="bold" color="#FFC02B">
+                Municipalidad Cholchol
+              </Text>
+              <Text fontSize={{ base: 'xs', md: 'sm' }} opacity={0.9}>
+                Servicios municipales modernos y transparentes
+              </Text>
+            </VStack>
+
+            {/* Right: Contact */}
+            <VStack spacing={1} align="center">
+              <HStack spacing={2}>
+                <Text fontSize="sm">📞</Text>
+                <Link href="tel:+562452734200" fontSize="sm" _hover={{ color: "#FFC02B" }}>
+                  (452) 734200
+                </Link>
+              </HStack>
+              <HStack spacing={2}>
+                <Text fontSize="sm">✉️</Text>
+                <Link 
+                  href="mailto:oficina@municholchol.cl" 
+                  fontSize="sm" 
+                  _hover={{ color: "#FFC02B" }}
+                >
+                  oficina@municholchol.cl
+                </Link>
+              </HStack>
+            </VStack>
+          </Stack>
+
+          {/* Divider */}
+          <Divider borderColor="rgba(255,255,255,0.2)" />
+
+          {/* Bottom: Copyright & Links */}
+          <Stack
+            direction={{ base: 'column', md: 'row' }}
+            justify="center"
+            align="center"
+            w="full"
+            spacing={{ base: 2, md: 6 }}
+          >
+            <Text fontSize="xs" opacity={0.8}>
+              © 2025 Municipalidad de Cholchol
             </Text>
-            <Stack direction={'row'} spacing={3}>
-              <Tag size="sm" variant="solid" bg="#FFC02B" color="#0071A9">
-                Servicios 24/7
-              </Tag>
-              <Tag size="sm" variant="solid" bg="#00ACAC" color="white">
+            
+            <HStack spacing={4} fontSize="xs">
+              <Link href="#" _hover={{ color: "#FFC02B" }}>
+                Servicios
+              </Link>
+              <Link href="#" _hover={{ color: "#FFC02B" }}>
+                Contacto
+              </Link>
+              <Link href="#" _hover={{ color: "#FFC02B" }}>
                 Transparencia
-              </Tag>
-            </Stack>
+              </Link>
+            </HStack>
           </Stack>
-          <Stack align={'flex-start'}>
-            <ListHeader>Servicios</ListHeader>
-            <Link href={'#'} fontSize="sm" color="white" _hover={{ color: "#FFC02B" }}>Trámites Online</Link>
-            <Link href={'#'} fontSize="sm" color="white" _hover={{ color: "#FFC02B" }}>Certificados</Link>
-            <Link href={'#'} fontSize="sm" color="white" _hover={{ color: "#FFC02B" }}>Pagos</Link>
-            <Link href={'#'} fontSize="sm" color="white" _hover={{ color: "#FFC02B" }}>Consultas</Link>
-          </Stack>
-          <Stack align={'flex-start'}>
-            <ListHeader>Información</ListHeader>
-            <Link href={'#'} fontSize="sm" color="white" _hover={{ color: "#FFC02B" }}>Noticias</Link>
-            <Link href={'#'} fontSize="sm" color="white" _hover={{ color: "#FFC02B" }}>Eventos</Link>
-            <Link href={'#'} fontSize="sm" color="white" _hover={{ color: "#FFC02B" }}>Proyectos</Link>
-            <Link href={'#'} fontSize="sm" color="white" _hover={{ color: "#FFC02B" }}>Transparencia</Link>
-          </Stack>
-          <Stack align={'center'}>
-            <ListHeader>Gobierno</ListHeader>
-            <Link href={'#'} fontSize="sm" color="white" _hover={{ color: "#FFC02B" }}>Alcalde</Link>
-            <Link href={'#'} fontSize="sm" color="white" _hover={{ color: "#FFC02B" }}>Concejo Municipal</Link>
-            <Link href={'#'} fontSize="sm" color="white" _hover={{ color: "#FFC02B" }}>Organigrama</Link>
-            <Link href={'#'} fontSize="sm" color="white" _hover={{ color: "#FFC02B" }}>Presupuesto</Link>
-          </Stack>
-          <Stack align={'center'}>
-            <ListHeader>Contacto</ListHeader>
-            <Link 
-              href="https://maps.google.com/?q=JOSÉ JOAQUÍN PéReZ, 449, Cholchol" 
-              fontSize="xs" 
-              isExternal
-              color="white"
-              _hover={{ textDecoration: 'underline', color: "#FFC02B" }}
-            >
-              📍 JOSÉ JOAQUÍN PéReZ, 449, Cholchol
-            </Link>
-            <Link 
-              href="tel:+562452734200" 
-              fontSize="xs"
-              color="white"
-              _hover={{ textDecoration: 'underline', color: "#FFC02B" }}
-            >
-              📞 (452) 734200
-            </Link>
-            <Link 
-              href="mailto:oficinadepartes@municholchol.cl" 
-              fontSize="xs"
-              color="white"
-              _hover={{ textDecoration: 'underline', color: "#FFC02B" }}
-            >
-              ✉️ oficinadepartes@municholchol.cl
-            </Link>
-            <Text fontSize="xs" color="white">🕐 Lun-Vie: 8:00-17:00</Text>
-          </Stack>
-        </SimpleGrid>
+        </VStack>
       </Container>
-      <Box py={2}>
-        <Flex
-          align={'center'}
-          _before={{
-            content: '""',
-            borderBottom: '1px solid',
-            borderColor: '#00ACAC',
-            flexGrow: 1,
-            mr: 8,
-          }}
-          _after={{
-            content: '""',
-            borderBottom: '1px solid',
-            borderColor: '#00ACAC',
-            flexGrow: 1,
-            ml: 8,
-          }}>
-          <Logo />
-        </Flex>
-        <Text pt={2} fontSize={'xs'} textAlign={'center'}>
-          © 2025 Municipalidad de Muncholol. Todos los derechos reservados.
-        </Text>
-      </Box>
     </Box>
   );
 }
