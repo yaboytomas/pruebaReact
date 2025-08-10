@@ -29,6 +29,7 @@ export default function CtaSection() {
   const [showProgress, setShowProgress] = useState(false);
   const [hasCompleted, setHasCompleted] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [portalMessage, setPortalMessage] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
@@ -50,9 +51,11 @@ export default function CtaSection() {
           setShowProgress(false);
           setHasCompleted(true);
           
-          // Only show toast once
-          if (!hasCompleted) {
+          // Only show toast once (dedupe using toast id)
+          const toastId = 'register-success';
+          if (!toast.isActive(toastId)) {
             toast({
+              id: toastId,
               title: '¡Registro exitoso!',
               description: 'Has sido registrado en nuestro portal ciudadano',
               status: 'success',
@@ -82,6 +85,18 @@ export default function CtaSection() {
   const handleImageClick = (imageSrc) => {
     setSelectedImage(imageSrc);
     onOpen();
+  };
+
+  // Click handler for Portal Ciudadano (Trámites, Pagos, Consultas)
+  const handlePortalClick = (option) => {
+    setPortalMessage(`Has seleccionado: ${option}`);
+    toast({
+      title: option,
+      description: 'Muy pronto podrás acceder a esta sección.',
+      status: 'info',
+      duration: 3000,
+      isClosable: true,
+    });
   };
 
   const images = [
@@ -243,7 +258,12 @@ export default function CtaSection() {
                   borderRadius="xl"
                   transition="all 0.3s ease"
                   _hover={{ transform: 'translateY(-3px)', boxShadow: '0 8px 25px rgba(255, 192, 43, 0.4)' }}
-                  cursor="pointer">
+                  cursor="pointer"
+                  role="button"
+                  aria-label="Ir a Trámites"
+                  tabIndex={0}
+                  onClick={() => handlePortalClick('Trámites')}
+                  onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handlePortalClick('Trámites')}>
                   <Text fontSize="lg" fontWeight="bold" color="#0071A9">
                     Trámites
                   </Text>
@@ -256,7 +276,12 @@ export default function CtaSection() {
                   borderRadius="xl"
                   transition="all 0.3s ease"
                   _hover={{ transform: 'translateY(-3px)', boxShadow: '0 8px 25px rgba(0, 172, 172, 0.4)' }}
-                  cursor="pointer">
+                  cursor="pointer"
+                  role="button"
+                  aria-label="Ir a Pagos"
+                  tabIndex={0}
+                  onClick={() => handlePortalClick('Pagos')}
+                  onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handlePortalClick('Pagos')}>
                   <Text fontSize="lg" fontWeight="bold" color="white">
                     Pagos
                   </Text>
@@ -269,12 +294,22 @@ export default function CtaSection() {
                   borderRadius="xl"
                   transition="all 0.3s ease"
                   _hover={{ transform: 'translateY(-3px)', boxShadow: '0 8px 25px rgba(255, 192, 43, 0.4)' }}
-                  cursor="pointer">
+                  cursor="pointer"
+                  role="button"
+                  aria-label="Ir a Consultas"
+                  tabIndex={0}
+                  onClick={() => handlePortalClick('Consultas')}
+                  onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handlePortalClick('Consultas')}>
                   <Text fontSize="lg" fontWeight="bold" color="#0071A9">
                     Consultas
                   </Text>
                 </Box>
               </HStack>
+              {portalMessage && (
+                <Text mt={2} color="white" fontSize="md" textAlign="center">
+                  {portalMessage}
+                </Text>
+              )}
             </VStack>
           </Box>
 
