@@ -59,15 +59,14 @@ export default function FeaturedSection() {
   const toast = useToast();
   const isInitialMount = useRef(true);
 
-  // Click event handler for card expansion
+
   const handleCardClick = (featureId) => {
     setExpandedCard(expandedCard === featureId ? null : featureId);
   };
 
-  // Click event handler for favorite toggle
   const handleFavoriteClick = (featureId, e) => {
     e.preventDefault();
-    e.stopPropagation(); // Prevent card expansion
+    e.stopPropagation(); 
     
     setFavoriteServices(prev => {
       const isFavorite = prev.includes(featureId);
@@ -75,7 +74,6 @@ export default function FeaturedSection() {
         ? prev.filter(id => id !== featureId)
         : [...prev, featureId];
       
-      // Set the action to trigger useEffect
       setLastAction({
         type: isFavorite ? 'removed' : 'added',
         featureId
@@ -85,9 +83,8 @@ export default function FeaturedSection() {
     });
   };
 
-  // Mouseover event handler for card hover effects
+
   const handleCardMouseOver = (featureId) => {
-    // Dynamic content update - add hover effect
     const card = document.getElementById(`feature-card-${featureId}`);
     if (card) {
       card.style.transform = 'translateY(-8px) scale(1.02)';
@@ -103,12 +100,14 @@ export default function FeaturedSection() {
     }
   };
 
-  // Handle toast notifications for favorite actions
+  // Handle toast notifications for favorite actions with cleanup
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
       return;
     }
+
+    let timeoutId = null;
 
     if (lastAction) {
       if (lastAction.type === 'added') {
@@ -129,9 +128,18 @@ export default function FeaturedSection() {
         });
       }
       
-      // Clear the action after showing toast
-      setLastAction(null);
+      // Clear the action after a delay with cleanup
+      timeoutId = setTimeout(() => {
+        setLastAction(null);
+      }, 100);
     }
+
+    // Cleanup function to prevent memory leaks
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
   }, [lastAction, toast]);
 
   return (
