@@ -340,11 +340,37 @@ export default function ContactForm() {
                <HStack spacing={8} justify="center" flexWrap="wrap">
                  <Flex align="center" color="white">
                    <Icon as={PhoneIcon} mr={2} />
-                   <Text fontSize="sm">(452) 734200</Text>
+                   <Text 
+                     as="a" 
+                     href="tel:+56452734200" 
+                     fontSize="sm"
+                     textDecoration="none"
+                     _hover={{ 
+                       textDecoration: 'underline',
+                       color: '#FFC02B',
+                       cursor: 'pointer'
+                     }}
+                     transition="all 0.2s"
+                   >
+                     (452) 734200
+                   </Text>
                  </Flex>
                  <Flex align="center" color="white">
                    <Icon as={EmailIcon} mr={2} />
-                   <Text fontSize="sm">oficinadepartes@municholchol.cl</Text>
+                   <Text 
+                     as="a" 
+                     href="mailto:oficinadepartes@municholchol.cl" 
+                     fontSize="sm"
+                     textDecoration="none"
+                     _hover={{ 
+                       textDecoration: 'underline',
+                       color: '#FFC02B',
+                       cursor: 'pointer'
+                     }}
+                     transition="all 0.2s"
+                   >
+                     oficinadepartes@municholchol.cl
+                   </Text>
                  </Flex>
                  <Flex align="center" color="white">
                    <Icon as={InfoIcon} mr={2} />
