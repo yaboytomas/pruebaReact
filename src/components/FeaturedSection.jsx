@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { CheckIcon, StarIcon, InfoIcon } from '@chakra-ui/icons';
 import { useState, useEffect, useRef } from 'react';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 // Replace test data with your data
 const features = [
@@ -53,7 +54,7 @@ const features = [
 
 export default function FeaturedSection() {
   const [expandedCard, setExpandedCard] = useState(null);
-  const [favoriteServices, setFavoriteServices] = useState([]);
+  const [favoriteServices, setFavoriteServices] = useLocalStorage('favoriteServices', []);
   const [lastAction, setLastAction] = useState(null);
   const toast = useToast();
   const isInitialMount = useRef(true);

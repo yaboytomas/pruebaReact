@@ -128,190 +128,240 @@ export default function CtaSection() {
         }}
       >
         <Container maxW={'6xl'} position="relative" zIndex={1}>
-          {/* Main Hero Section */}
-          <VStack spacing={8} textAlign="center" mb={16}>
-            <Heading
-              fontWeight={700}
-              fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl' }}
-              lineHeight={'110%'}
-              color="white">
-              Únete a la{' '}
-              <Text as={'span'} color={'#FFC02B'}>
-                transformación digital
-              </Text>{' '}
-              de nuestra municipalidad
-            </Heading>
+          {/* Split Layout: Left and Right Containers */}
+          <Stack
+            direction={{ base: 'column', lg: 'row' }}
+            spacing={{ base: 8, lg: 12 }}
+            align="stretch"
+            minH="400px">
             
-            <Text 
-              color={'white'} 
-              maxW={'4xl'} 
-              fontSize={{ base: 'md', md: 'lg' }}
-              opacity={0.95}
-              lineHeight={1.6}>
-              Sé parte del cambio hacia una gestión municipal más moderna, 
-              eficiente y cercana a la ciudadanía. Regístrate para acceder 
-              a todos nuestros servicios digitales.
-            </Text>
+            {/* Left Container - Digital Transformation */}
+            <Box 
+              flex={1}
+              display="flex"
+              alignItems="center"
+              justifyContent="center">
+              <Box
+                bg="rgba(255, 255, 255, 0.1)"
+                backdropFilter="blur(10px)"
+                borderRadius="2xl"
+                p={8}
+                border="1px solid rgba(255, 255, 255, 0.2)"
+                boxShadow="0 8px 32px rgba(0, 0, 0, 0.3)"
+                w="full"
+                maxW="500px"
+                h="350px"
+                display="flex"
+                flexDirection="column"
+                justifyContent="space-between">
+                
+                {/* Header Section */}
+                <VStack spacing={4} textAlign="center">
+                  <Heading
+                    as="h3"
+                    fontWeight={600}
+                    fontSize="2xl"
+                    lineHeight={'110%'}
+                    color="#FFC02B"
+                    textAlign="center">
+                    Transformación Digital{' '}
+                    <Text as={'span'} color={'white'}>
+                      Municipal
+                    </Text>
+                  </Heading>
+                  
+                  <Text 
+                    color={'white'} 
+                    fontSize="lg"
+                    opacity={0.9}
+                    lineHeight={1.6}
+                    textAlign="center">
+                    Sé parte del cambio hacia una gestión municipal más moderna, 
+                    eficiente y cercana a la ciudadanía.
+                  </Text>
+                </VStack>
 
-            {/* Action Buttons */}
-            <HStack spacing={6} flexWrap="wrap" justify="center">
-              <Button
-                size="lg"
-                rounded={'full'}
-                px={8}
-                py={6}
-                bg={'#FFC02B'}
-                color={'#0071A9'}
-                fontWeight={600}
-                fontSize="lg"
-                onClick={hasCompleted ? () => {
-                  setHasCompleted(false);
-                  setRegistrationProgress(0);
-                  setShowProgress(false);
-                } : handleRegisterClick}
-                isLoading={isRegistering}
-                loadingText="Registrando..."
-                _hover={{ bg: '#e6ab26', transform: 'translateY(-2px)' }}
-                transition="all 0.3s ease"
-                boxShadow="0 4px 15px rgba(255, 192, 43, 0.4)">
-                {hasCompleted ? 'Registrarse Nuevamente' : 'Registrarse Ahora'}
-              </Button>
-              
-              <Button 
-                size="lg"
-                rounded={'full'} 
-                px={8}
-                py={6}
-                variant={'outline'}
-                borderColor={'white'}
-                borderWidth={2}
-                color={'white'}
-                fontWeight={600}
-                fontSize="lg"
-                onClick={handleLearnMoreClick}
-                _hover={{ 
-                  bg: 'white', 
-                  color: '#0071A9',
-                  transform: 'translateY(-2px)'
-                }}
-                transition="all 0.3s ease">
-                Conocer Más
-              </Button>
-            </HStack>
-
-            {/* Progress Bar */}
-            {showProgress && (
-              <Box w="full" maxW="500px">
-                <Text fontSize="md" color="white" mb={3} textAlign="center" fontWeight={500}>
-                  Procesando registro... {registrationProgress}%
-                </Text>
-                <Progress 
-                  value={registrationProgress} 
-                  bg="rgba(255,255,255,0.2)"
-                  colorScheme="yellow"
-                  size="lg"
-                  borderRadius="full"
-                  hasStripe
-                  isAnimated
-                />
+                {/* Action Buttons */}
+                <VStack spacing={4} mt={6}>
+                  <HStack spacing={4} justify="center" flexWrap="wrap">
+                    <Button
+                      size="lg"
+                      rounded={'full'}
+                      px={6}
+                      py={4}
+                      bg={'#FFC02B'}
+                      color={'#0071A9'}
+                      fontWeight={600}
+                      fontSize="md"
+                      onClick={hasCompleted ? () => {
+                        setHasCompleted(false);
+                        setRegistrationProgress(0);
+                        setShowProgress(false);
+                      } : handleRegisterClick}
+                      isLoading={isRegistering}
+                      loadingText="Registrando..."
+                      _hover={{ bg: '#e6ab26', transform: 'translateY(-2px)' }}
+                      transition="all 0.3s ease"
+                      boxShadow="0 4px 15px rgba(255, 192, 43, 0.4)">
+                      {hasCompleted ? 'Registrarse Nuevamente' : 'Registrarse Ahora'}
+                    </Button>
+                    
+                    <Button 
+                      size="lg"
+                      rounded={'full'} 
+                      px={6}
+                      py={4}
+                      variant={'outline'}
+                      borderColor={'white'}
+                      borderWidth={2}
+                      color={'white'}
+                      fontWeight={600}
+                      fontSize="md"
+                      onClick={handleLearnMoreClick}
+                      _hover={{ 
+                        bg: 'white', 
+                        color: '#0071A9',
+                        transform: 'translateY(-2px)'
+                      }}
+                      transition="all 0.3s ease">
+                      Conocer Más
+                    </Button>
+                  </HStack>
+                  
+                  {/* Progress Area */}
+                  <Box h="40px" w="full" display="flex" flexDirection="column" justifyContent="center">
+                    {showProgress && (
+                      <>
+                        <Text fontSize="sm" color="white" mb={2} textAlign="center" fontWeight={500}>
+                          Procesando registro... {registrationProgress}%
+                        </Text>
+                        <Progress 
+                          value={registrationProgress} 
+                          bg="rgba(255,255,255,0.2)"
+                          colorScheme="yellow"
+                          size="md"
+                          borderRadius="full"
+                          hasStripe
+                          isAnimated
+                        />
+                      </>
+                    )}
+                  </Box>
+                </VStack>
               </Box>
-            )}
-          </VStack>
+            </Box>
 
-          {/* Portal Digital Section */}
-          <Box
-            bg="rgba(255, 255, 255, 0.1)"
-            backdropFilter="blur(10px)"
-            borderRadius="2xl"
-            p={8}
-            mb={16}
-            border="1px solid rgba(255, 255, 255, 0.2)"
-            boxShadow="0 8px 32px rgba(0, 0, 0, 0.3)">
-            
-            <VStack spacing={6}>
-              <Heading 
-                size="xl" 
-                color="#FFC02B" 
-                textAlign="center"
-                fontWeight={600}>
-                Portal Ciudadano Digital
-              </Heading>
-              
-              <Text 
-                color="white" 
-                fontSize="lg"
-                textAlign="center"
-                opacity={0.9}
-                maxW="2xl">
-                Una plataforma moderna para conectar gobierno y ciudadanía
-              </Text>
+            {/* Right Container - Digital Portal */}
+            <Box 
+              flex={1}
+              display="flex"
+              alignItems="center"
+              justifyContent="center">
+              <Box
+                bg="rgba(255, 255, 255, 0.1)"
+                backdropFilter="blur(10px)"
+                borderRadius="2xl"
+                p={8}
+                border="1px solid rgba(255, 255, 255, 0.2)"
+                boxShadow="0 8px 32px rgba(0, 0, 0, 0.3)"
+                w="full"
+                maxW="500px"
+                h="350px"
+                display="flex"
+                flexDirection="column"
+                justifyContent="space-between">
+                
+                {/* Header Section */}
+                <VStack spacing={4} textAlign="center">
+                  <Heading 
+                    as="h3"
+                    fontWeight={600}
+                    fontSize="2xl"
+                    color="#FFC02B" 
+                    textAlign="center">
+                    Portal Ciudadano Digital
+                  </Heading>
+                  
+                  <Text 
+                    color="white" 
+                    fontSize="lg"
+                    textAlign="center"
+                    opacity={0.9}
+                    lineHeight={1.6}>
+                    Una plataforma moderna para conectar gobierno y ciudadanía
+                  </Text>
+                </VStack>
 
-              <HStack 
-                spacing={6} 
-                justify="center" 
-                flexWrap="wrap"
-                pt={4}>
-                <Box 
-                  bg="#FFC02B" 
-                  px={6} 
-                  py={4} 
-                  borderRadius="xl"
-                  transition="all 0.3s ease"
-                  _hover={{ transform: 'translateY(-3px)', boxShadow: '0 8px 25px rgba(255, 192, 43, 0.4)' }}
-                  cursor="pointer"
-                  role="button"
-                  aria-label="Ir a Trámites"
-                  tabIndex={0}
-                  onClick={() => handlePortalClick('Trámites')}
-                  onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handlePortalClick('Trámites')}>
-                  <Text fontSize="lg" fontWeight="bold" color="#0071A9">
-                    Trámites
-                  </Text>
-                </Box>
-                
-                <Box 
-                  bg="#00ACAC" 
-                  px={6} 
-                  py={4} 
-                  borderRadius="xl"
-                  transition="all 0.3s ease"
-                  _hover={{ transform: 'translateY(-3px)', boxShadow: '0 8px 25px rgba(0, 172, 172, 0.4)' }}
-                  cursor="pointer"
-                  role="button"
-                  aria-label="Ir a Pagos"
-                  tabIndex={0}
-                  onClick={() => handlePortalClick('Pagos')}
-                  onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handlePortalClick('Pagos')}>
-                  <Text fontSize="lg" fontWeight="bold" color="white">
-                    Pagos
-                  </Text>
-                </Box>
-                
-                <Box 
-                  bg="#FFC02B" 
-                  px={6} 
-                  py={4} 
-                  borderRadius="xl"
-                  transition="all 0.3s ease"
-                  _hover={{ transform: 'translateY(-3px)', boxShadow: '0 8px 25px rgba(255, 192, 43, 0.4)' }}
-                  cursor="pointer"
-                  role="button"
-                  aria-label="Ir a Consultas"
-                  tabIndex={0}
-                  onClick={() => handlePortalClick('Consultas')}
-                  onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handlePortalClick('Consultas')}>
-                  <Text fontSize="lg" fontWeight="bold" color="#0071A9">
-                    Consultas
-                  </Text>
-                </Box>
-              </HStack>
-              {portalMessage && (
-                <Text mt={2} color="white" fontSize="md" textAlign="center">
-                  {portalMessage}
-                </Text>
-              )}
-            </VStack>
-          </Box>
+                {/* Service Buttons */}
+                <VStack spacing={4} mt={6}>
+                  <HStack spacing={4} justify="center" flexWrap="wrap">
+                    <Box 
+                      bg="#FFC02B" 
+                      px={6} 
+                      py={4} 
+                      borderRadius="xl"
+                      transition="all 0.3s ease"
+                      _hover={{ transform: 'translateY(-3px)', boxShadow: '0 8px 25px rgba(255, 192, 43, 0.4)' }}
+                      cursor="pointer"
+                      role="button"
+                      aria-label="Ir a Trámites"
+                      tabIndex={0}
+                      onClick={() => handlePortalClick('Trámites')}
+                      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handlePortalClick('Trámites')}>
+                      <Text fontSize="md" fontWeight="bold" color="#0071A9">
+                        Trámites
+                      </Text>
+                    </Box>
+                    
+                    <Box 
+                      bg="#00ACAC" 
+                      px={6} 
+                      py={4} 
+                      borderRadius="xl"
+                      transition="all 0.3s ease"
+                      _hover={{ transform: 'translateY(-3px)', boxShadow: '0 8px 25px rgba(0, 172, 172, 0.4)' }}
+                      cursor="pointer"
+                      role="button"
+                      aria-label="Ir a Pagos"
+                      tabIndex={0}
+                      onClick={() => handlePortalClick('Pagos')}
+                      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handlePortalClick('Pagos')}>
+                      <Text fontSize="md" fontWeight="bold" color="white">
+                        Pagos
+                      </Text>
+                    </Box>
+                    
+                    <Box 
+                      bg="#FFC02B" 
+                      px={6} 
+                      py={4} 
+                      borderRadius="xl"
+                      transition="all 0.3s ease"
+                      _hover={{ transform: 'translateY(-3px)', boxShadow: '0 8px 25px rgba(255, 192, 43, 0.4)' }}
+                      cursor="pointer"
+                      role="button"
+                      aria-label="Ir a Consultas"
+                      tabIndex={0}
+                      onClick={() => handlePortalClick('Consultas')}
+                      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handlePortalClick('Consultas')}>
+                      <Text fontSize="md" fontWeight="bold" color="#0071A9">
+                        Consultas
+                      </Text>
+                    </Box>
+                  </HStack>
+                  
+                  {/* Message Area */}
+                  <Box h="40px" display="flex" alignItems="center" justifyContent="center">
+                    {portalMessage && (
+                      <Text color="white" fontSize="sm" textAlign="center" fontWeight={500}>
+                        {portalMessage}
+                      </Text>
+                    )}
+                  </Box>
+                </VStack>
+              </Box>
+            </Box>
+          </Stack>
 
           {/* Gallery Section */}
           <Box>
