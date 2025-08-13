@@ -104,23 +104,50 @@ export default function HeroSection() {
           py={{ base: 12, md: 16 }}
           direction={{ base: 'column' }}>
           
-          {/* Main Content Row */}
+          {/* Centered Single Container */}
           <Stack
-            direction={{ base: 'column', md: 'row' }}
             spacing={{ base: 6, md: 8 }}
             align={'center'}
-            w={'full'}>
+            textAlign={'center'}
+            maxW={'4xl'}
+            bg={'blackAlpha.600'}
+            p={{ base: 6, md: 8 }}
+            borderRadius={'xl'}
+            backdropFilter={'blur(10px)'}
+            border={'1px solid'}
+            borderColor={'whiteAlpha.200'}>
             
-            {/* Left Container - Text Content */}
-            <Stack 
-              flex={1} 
-              spacing={{ base: 4, md: 6 }}
-              bg={'blackAlpha.600'}
-              p={6}
-              borderRadius={'xl'}
-              backdropFilter={'blur(10px)'}
-              border={'1px solid'}
-              borderColor={'whiteAlpha.200'}>
+            {/* Logo Image */}
+            <Box
+              display={'flex'}
+              justifyContent={'center'}
+              alignItems={'center'}
+              position={'relative'}
+              overflow={'visible'}>
+              <Image
+                ref={logoRef}
+                alt={'Municipality Logo'}
+                src={logoImage}
+                width={{ base: '200px', md: '250px' }}
+                height={{ base: '200px', md: '250px' }}
+                maxWidth={{ base: '200px', md: '250px' }}
+                maxHeight={{ base: '200px', md: '250px' }}
+                objectFit={'contain'}
+                filter={'drop-shadow(0 8px 16px rgba(0,0,0,0.4))'}
+                cursor="pointer"
+                onClick={handleLogoClick}
+                onMouseOver={handleLogoMouseOver}
+                onMouseOut={handleLogoMouseOut}
+                transition="all 0.3s ease"
+                transform={isLogoHovered ? 'scale(1.1) rotate(5deg)' : 'scale(1) rotate(0deg)'}
+                _hover={{
+                  filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.6))',
+                }}
+              />
+            </Box>
+
+            {/* Text Content */}
+            <Stack spacing={{ base: 4, md: 6 }} align={'center'}>
               <Heading
                 lineHeight={1.1}
                 fontWeight={600}
@@ -147,51 +174,12 @@ export default function HeroSection() {
                   Muncholol
                 </Text>
               </Heading>
-              <Text color={'gray.100'} textShadow="1px 1px 2px rgba(0,0,0,0.7)" fontSize={'lg'}>
+              <Text color={'gray.100'} textShadow="1px 1px 2px rgba(0,0,0,0.7)" fontSize={'lg'} maxW={'2xl'}>
                 Trabajamos por el desarrollo y bienestar de nuestra comunidad. 
                 Ofrecemos servicios municipales eficientes y transparentes para 
                 mejorar la calidad de vida de todos nuestros ciudadanos.
               </Text>
             </Stack>
-
-            {/* Right Container - Logo Image */}
-            <Flex
-              flex={1}
-              justify={'center'}
-              align={'center'}
-              position={'relative'}
-              w={'full'}
-              overflow={'visible'}>
-              <Box
-                display={'flex'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                position={'relative'}
-                height={'400px'}
-                width={'400px'}
-                overflow={'visible'}>
-                <Image
-                  ref={logoRef}
-                  alt={'Municipality Logo'}
-                  src={logoImage}
-                  width={'300px'}
-                  height={'300px'}
-                  maxWidth={'300px'}
-                  maxHeight={'300px'}
-                  objectFit={'contain'}
-                  filter={'drop-shadow(0 8px 16px rgba(0,0,0,0.4))'}
-                  cursor="pointer"
-                  onClick={handleLogoClick}
-                  onMouseOver={handleLogoMouseOver}
-                  onMouseOut={handleLogoMouseOut}
-                  transition="all 0.3s ease"
-                  transform={isLogoHovered ? 'scale(1.1) rotate(5deg)' : 'scale(1) rotate(0deg)'}
-                  _hover={{
-                    filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.6))',
-                  }}
-                />
-              </Box>
-            </Flex>
           </Stack>
 
           {/* Buttons Section Below */}
