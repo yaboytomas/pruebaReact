@@ -89,7 +89,7 @@ export default function NavBar() {
                 textDecoration: 'none',
                 color: "#FFC02B"
               }}>
-              Municipalidad Muncholol
+              Municipalidad Cholchol
             </Link>
             
             <HStack as={'nav'} spacing={6}>

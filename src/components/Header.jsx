@@ -65,7 +65,7 @@ export default function Header() {
               color={useColorModeValue('gray.800', 'white')}
               fontSize="xl"
               fontWeight="bold">
-              Municipalidad Muncholol
+              Municipalidad Cholchol
             </Text>
           </Flex>
 
